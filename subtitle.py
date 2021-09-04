@@ -1,5 +1,7 @@
 # ----------------------------------------------------------------- find function
 import os, fnmatch
+
+
 def find(pattern, path):
     result = []
     for root, dirs, files in os.walk(path):
@@ -7,9 +9,13 @@ def find(pattern, path):
             if fnmatch.fnmatch(name, pattern):
                 result.append(os.path.join(root, name))
     return result
+
+
 # ----------------------------------------------------------------- generate pattern function
 def get_pattern(number, extension):
     return '*E' + str(number).zfill(2) + '*.' + extension
+
+
 # ----------------------------------------------------------------- find file function
 def find_file(extension):
     arr = []
@@ -23,12 +29,16 @@ def find_file(extension):
         episode_number = episode_number + 1
         find_array = find(get_pattern(episode_number, extension), './')
     return arr
+
+
 # ----------------------------------------------------------------- find video files
 videoFiles = find_file('mkv')
-print(videoFiles)
+
+
 # ----------------------------------------------------------------- find subtitle files
 subtitleFiles = find_file('srt')
-print(subtitleFiles)
+
+
 # ----------------------------------------------------------------- renaming
-for i in range (len(subtitleFiles)):
+for i in range(len(subtitleFiles)):
     os.rename(subtitleFiles[i] + '.srt', videoFiles[i] + '.srt')
